@@ -26,7 +26,8 @@ app.use('/api/v1/auth',authRoutes)
 //rest api
 app.get('/',(req,res) =>{
     res.send({
-        message:'Welcome to e-cart'
+        message:'Welcome to e-carts'
+
     })
 })
 
