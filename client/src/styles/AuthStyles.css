@@ -49,5 +49,6 @@
 }
 
 .forgot-btn:hover {
-    color: white !important;
+    background-color: #e7c0c0;
+    color: rgb(239, 190, 190);
 }
