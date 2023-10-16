@@ -41,7 +41,7 @@ export const createProductController = async (req, res) => {
       res.status(500).send({
         success: false,
         error,
-        message: "Error in crearing product",
+        message: "Error in creating product",
       });
     }
   };
@@ -133,7 +133,7 @@ try {
     const { name, description, price, category, quantity, shipping } =
     req.fields;
   const { photo } = req.files;
-  //alidation
+  //validation
   switch (true) {
     case !name:
       return res.status(500).send({ error: "Name is Required" });

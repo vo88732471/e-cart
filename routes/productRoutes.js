@@ -14,7 +14,7 @@ router.post('/create-product',requireSignIn,isAdmin,formidable() ,createProductC
 router.get('/get-product',getProductController)
 
 //get single product(without photo)
-router.get('/single-product/:slug',getSingleProductController)
+router.get('/get-product/:slug',getSingleProductController)
 
 //get photo of product
 router.get('/product-photo/:pid',productPhotoController)
