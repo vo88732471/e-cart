@@ -1,6 +1,5 @@
 
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Policy from "./pages/Policy";
@@ -19,6 +18,7 @@ import { Products } from "./pages/admin/Products";
 import { Orders } from "./pages/user/Orders";
 import { Profile } from "./pages/user/Profile";
 import { UpdateProduct } from "./pages/admin/UpdateProduct";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
