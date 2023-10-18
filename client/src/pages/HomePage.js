@@ -156,9 +156,9 @@ const HomePage = () => {
                   </p>
                   <div className="card-name-price">
                     <button
-                      className="btn btn-info ms-1 btn-sm"
+                      className="btn btn-info ms-1 btn-sm" onClick={()=>navigate(`/product/${p.slug}`)}
                     >
-                      More Details
+                      MORE DETAILS
                     </button>
                     <button className="btn btn-dark ms-1 btn-sm">
                       ADD TO CART
