@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Layout} from "./../components/layouts/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-// import "../styles/ProductDetailsStyles.css";
+
 
 const ProductDetails = () => {
   const params = useParams();
@@ -22,13 +22,15 @@ const ProductDetails = () => {
         `${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`
       );
       setProduct(data?.product);
+      // console.log(data?.product?._id)
+      
       getSimilarProduct(data?.product._id, data?.product.category._id);
     } catch (error) {
       console.log(error);
     }
   };
 
-  //get similar product
+  // get similar product
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
@@ -48,7 +50,7 @@ const ProductDetails = () => {
             className="card-img-top"
             alt={product.name}
             height="500"
-            // width={"ful"}
+
           />
         </div>
         <div className="col-md-6 product-details-info">

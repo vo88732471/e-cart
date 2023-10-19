@@ -1,7 +1,7 @@
 import productModel from "../models/productModel.js";
 import slugify from "slugify";
 import fs from "fs"
-import { pid } from "process";
+import categoryModel from '../models/categoryModel.js'
 
 export const createProductController = async (req, res) => {
     try {
@@ -94,7 +94,7 @@ export const productPhotoController = async(req,res) => {
       return res.status(200).send(product.photo.data);
       };
     }catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(500).send({
           success: false,
           error,
@@ -268,7 +268,7 @@ export const relatedProductController = async(req,res)=> {
     const {pid,cid}=req.params;
     const products = await productModel.find({
       category:cid,
-      _id:{$ne:pid}
+      _id:{$ne:pid},
     }).select("-photo").limit(8).populate("category")
     res.status(200).send({
       success:true,
@@ -280,6 +280,26 @@ export const relatedProductController = async(req,res)=> {
     res.status(400).send({
       success:false,
       message:"Error in related product api",
+      error, 
+    });
+  }
+}
+
+//category wise product
+export const productCategoryController = async(req,res)=>{
+  try {
+    const category = await categoryModel.findOne({slug: req.params.slug});
+    const products = await productModel.find({category}).populate("category");
+    res.status(200).send({
+      success:true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success:false,
+      message:"Error in category wise product api",
       error, 
     });
   }
