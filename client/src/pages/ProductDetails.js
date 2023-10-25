@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {Layout} from "./../components/layouts/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import { toast } from "react-hot-toast";
 
 
 const ProductDetails = () => {
@@ -9,6 +11,8 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
+
+  const [cart,setCart]=useCart();
 
   //inital product details
   useEffect(() => {
@@ -66,7 +70,11 @@ const ProductDetails = () => {
             })}
           </h6>
           <h6>Category : {product?.category?.name}</h6>
-          <button class="btn btn-warning ms-1">ADD TO CART</button>
+          <button class="btn btn-warning ms-1" onClick={() => {
+                      setCart([...cart,product])
+                      localStorage.setItem("cart",JSON.stringify([...cart,product]))
+                      toast.success('Item Added to Cart')
+                    }}>ADD TO CART</button>
         </div>
       </div>
       <hr />
@@ -90,7 +98,11 @@ const ProductDetails = () => {
                   </p>
                   <p className="card-text fw-bold"> $ {p.price}</p>
                   <button class="btn btn-info ms-1 btn-sm" onClick={()=>navigate(`/product/${p.slug}`)}>MORE DETAILS</button>
-                  <button class="btn btn-dark ms-1 btn-sm">ADD TO CART</button>
+                  <button class="btn btn-dark ms-1 btn-sm" onClick={() => {
+                      setCart([...cart,p])
+                      localStorage.setItem("cart",JSON.stringify([...cart,p]))
+                      toast.success('Item Added to Cart')
+                    }}>ADD TO CART</button>
                 </div>
               </div>
             ))}

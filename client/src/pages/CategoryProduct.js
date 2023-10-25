@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {Layout} from "../components/layouts/Layout";
 import { useParams, useNavigate } from "react-router-dom";
+import {toast} from 'react-hot-toast'
 // import "../styles/CategoryProductStyles.css";
 import axios from "axios";
+import { useCart } from "../context/cart";
 const CategoryProduct = () => {
+
   const params = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+
+  const [cart,setCart]=useCart();
 
   useEffect(() => {
     if (params?.slug) getPrductsByCat();
@@ -31,10 +36,10 @@ const CategoryProduct = () => {
         <h4 className="text-center">Category - {category?.name}</h4>
         <h6 className="text-center">{products?.length} result found </h6>
         <div className="row">
-          <div className="col-md-9 offset-1">
+          <div className="container">
             <div className="d-flex flex-wrap mt-4">
             {products?.map((p) => (
-              <div className="card m-2" style={{ width: "16rem" }}>
+              <div className="card m-4" style={{ width: "16rem" }}>
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
@@ -47,7 +52,11 @@ const CategoryProduct = () => {
                   </p>
                   <p className="card-text fw-bold"> $ {p.price}</p>
                   <button class="btn btn-info ms-1 btn-sm" onClick={()=>navigate(`/product/${p.slug}`)}>MORE DETAILS</button>
-                  <button class="btn btn-dark ms-1 btn-sm">ADD TO CART</button>
+                  <button class="btn btn-dark ms-1 btn-sm" onClick={() => {
+                      setCart([...cart,p])
+                      localStorage.setItem("cart",JSON.stringify([...cart,p]))
+                      toast.success('Item Added to Cart')
+                    }}>ADD TO CART</button>
                 </div>
               </div>
             ))}
